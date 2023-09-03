@@ -21,7 +21,7 @@ def edit():
 
     results = db.session.query(Books.title, Books.author).all()
     books = [f"{row.title} --- {row.author}" for row in results]
-    ur_results = db.session.query(Books.title, Books.author).filter(Books.read == 0).all()
+    ur_results = db.session.query(Books.title, Books.author).filter(Books.read == False).all()
     ur_books = [f"{row.title} --- {row.author}" for row in ur_results]
     books.insert(0, "")
     ur_books.insert(0, "")

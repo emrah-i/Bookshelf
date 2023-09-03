@@ -1,3 +1,7 @@
+html {
+    font-size: 18px;
+}
+
 #entry-form {
     margin: 7vh auto;
 }
