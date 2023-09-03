@@ -3,8 +3,9 @@ from models import app, db, Books, BookForm, Delete, RecommendBook, Image, Read,
 from flask_bootstrap import Bootstrap5
 from flask_wtf.csrf import CSRFProtect, validate_csrf
 import smtplib
+import os
 
-app.config['SECRET_KEY'] = 'ilovecats'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 csrf = CSRFProtect(app)
 bootstrap = Bootstrap5(app)
 
@@ -145,8 +146,8 @@ def unread():
 
 @app.route('/rec', methods=['GET', 'POST'])
 def rec():
-    my_email = 'emrakhibragimov5@gmail.com'
-    password = 'rgbzaerhvevmdoou'
+    my_email = os.getenv("EMAIL")
+    password = os.getenv("PASSWORD")
 
     rec = RecommendBook()
     if request.method == 'POST':

@@ -6,6 +6,7 @@ from wtforms import StringField, SubmitField, ValidationError, BooleanField, Pas
 from wtforms.validators import DataRequired, Length
 from bs4 import BeautifulSoup
 import requests
+import os
 
 app = Flask(__name__)
 db = SQLAlchemy()
@@ -32,7 +33,7 @@ def get_image(title):
     return img[0]['src']
 
 def must_equal_validator(form, field):
-    if field.data != "ilovecats":
+    if field.data != os.getenv('KEY'):
         raise ValidationError("Key is wrong. You cannot edit the database.")
 
 class Books(db.Model):
