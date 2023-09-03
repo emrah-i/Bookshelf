@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-xl-6 col-lg-8 col-md-10 col-11 mt-3">
+            <p>Please enter the title and author's name in the proper case and spelling.</p>
+            {{ new_message|safe }}
+            <h2>Enter the New Book:</h2>
+            <form action="/edit" method="post">
+                {{ add.csrf_token }}
+                {{ render_form(add) }}    
+            </form>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-xl-6 col-lg-8 col-md-10 col-11 mt-3">
+            <p id="read-p">Please select the book from the reading list you have read.</p>
+            {{ rd_message|safe }}
+            <h2>Change a Book to Read:</h2>
+            <form action="/read_book" method="post">
+                {{ read.csrf_token }}
+                {{ render_form(read) }}    
+            </form>
+        </div>
+    </div>
+    <div class="row  d-flex justify-content-center mt-5">
+        <div class="col-xl-6 col-lg-8 col-md-10 col-11 mt-3">
+            <p id="image-p">Please select the book and the link of the new image source.</p>
+            {{ img_message|safe }}
+            <h2>Change a Book Cover:</h2>
+            <form action="/image" method="post">
+                {{ image.csrf_token }}
+                {{ render_form(image) }}    
+            </form>
+        </div>
+    </div>  
+    <div class="row d-flex justify-content-center mt-5 mb-5">
+        <div class="col-xl-6 col-lg-8 col-md-10 col-11 mt-3 mb-5">
+            <p id="delete-p">Select the book you would like to delete:</p>
+            {{ del_message|safe }}
+            <h2>Delete a Book:</h2>
+            <form action="/delete" method="post">
+                {{ delete.csrf_token }}
+                {{ render_form(delete) }}    
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="px-4 pt-5 my-5 text-center border-bottom">
+    <h1 class="display-4 fw-bold">My Bookshelf</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Welcome to a simple website I made to present all of my books on my bookshelf, both read and unread. This was made using HTML, CSS, JavaScript, Bootstrap, Python, Flask, Flask-WTForms, and Flask-SQLAlchemy. To view either my read or reading list books, click one of the following buttons:</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+        <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3" id="read_button">Read Books</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4" id="reading_list_button">Reading List</button>
+      </div>
+    </div>
+    <div class="overflow-hidden" style="max-height: 47vh;">
+      <div class="container px-2">
+        <img src="static/bookshelf.jpeg" class="img-fluid border rounded-3 mb-4" alt="Example image" width="700" height="467" loading="lazy">
+      </div>
+    </div>
+</div>
+{% endblock %}
