@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 
+{% block title %}All Books{% endblock %}
+
 {% block body %}
 <div id="books" class="container">
     <h2>{{ heading }}</h2>
@@ -8,7 +10,7 @@
         {% for book in books %}
         <div class="col-xl-3 col-lg-4 col-sm-6 col-12" id="img-title-box">
             <div class="book-img">
-                <img src={{ book.img }} width="200">
+                <img src="{{ book.img }}" width="200">
             </div>
             <p>{{ book.title }} by {{ book.author }}</p>
         </div>
