@@ -160,7 +160,7 @@ def rec():
             author = rec.author.data
             details = rec.details.data
             their_email = rec.email.data
-            connection = smtplib.SMTP("smtp.gmail.com")
+            connection = smtplib.SMTP("smtp.gmail.com", 587)
             connection.starttls()
             connection.login(my_email, password)
             connection.sendmail(from_addr=my_email, to_addrs=my_email, 
