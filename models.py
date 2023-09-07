@@ -13,9 +13,8 @@ db = SQLAlchemy()
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 db.init_app(app)
 
-app.config['RECAPTCHA_PUBLIC_KEY'] = '6LfMogUoAAAAABoLzq4NEv_AhoaAfdQLwHy9X15L'
+app.config['RECAPTCHA_PUBLIC_KEY'] = os.getenv('GR_PUBLIC_KEY')
 app.config['RECAPTCHA_PRIVATE_KEY'] = os.getenv('GR_SECRET_KEY')
-
 
 
 def get_image(title):
