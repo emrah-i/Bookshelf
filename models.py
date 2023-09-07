@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Boolean
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, ValidationError, BooleanField, PasswordField, SelectField, EmailField, TextAreaField
 from wtforms.validators import DataRequired, Length
 from bs4 import BeautifulSoup
@@ -12,6 +12,11 @@ app = Flask(__name__)
 db = SQLAlchemy()
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 db.init_app(app)
+
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6LfMogUoAAAAABoLzq4NEv_AhoaAfdQLwHy9X15L'
+app.config['RECAPTCHA_PRIVATE_KEY'] = os.getenv('GR_SECRET_KEY')
+
+
 
 def get_image(title):
     headers = {
@@ -71,4 +76,5 @@ class RecommendBook(FlaskForm):
     author = StringField('Author:', validators=[DataRequired(), Length(min=2, max=150)], render_kw={'placeholder': 'Author'})
     details = TextAreaField('Details:', validators=[DataRequired(), Length(min=2, max=500)], render_kw={'placeholder': 'Enter your reason for recommending'})
     email = EmailField('Your Email:', validators=[DataRequired()], render_kw={'placeholder': 'Email'})
+    recaptcha = RecaptchaField()
     send = SubmitField()

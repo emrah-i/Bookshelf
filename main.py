@@ -1,13 +1,16 @@
-from flask import render_template, redirect, request, url_for
+from flask import render_template, redirect, request, url_for, flash
 from models import app, db, Books, BookForm, Delete, RecommendBook, Image, Read, get_image
 from flask_bootstrap import Bootstrap5
 from flask_wtf.csrf import CSRFProtect, validate_csrf
 import smtplib
+import requests
 import os
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 csrf = CSRFProtect(app)
 bootstrap = Bootstrap5(app)
+
+
 
 with app.app_context():
     db.create_all()
@@ -146,12 +149,13 @@ def unread():
 
 @app.route('/rec', methods=['GET', 'POST'])
 def rec():
-    my_email = os.getenv("SMTP_EMAIL")
-    password = os.getenv("SMTP_PASSWORD")
 
     rec = RecommendBook()
     if request.method == 'POST':
         if rec.validate_on_submit():
+            my_email = os.getenv("SMTP_EMAIL")
+            password = os.getenv("SMTP_PASSWORD")
+
             title = rec.title.data
             author = rec.author.data
             details = rec.details.data
@@ -162,11 +166,11 @@ def rec():
             connection.sendmail(from_addr=my_email, to_addrs=my_email, 
                                 msg=f'Subject: Book Recommendation!\n\n{title} by {author} was recommended by {their_email}. They recommended this book because: {details}')
             connection.close()
+            flash("<p style='color:green'>Email successfully sent!</p>")
             return redirect(url_for('rec'))
-        
         else:
-            message = "<p style='color:red'>*ERROR*</p>"
-            return render_template('rec.html', message=message)
+            flash("<p style='color:red'>Invalid reCAPTCHA</p>")
+            return redirect(url_for('rec'))
         
     return render_template('rec.html', form=rec)
 

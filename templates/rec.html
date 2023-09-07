@@ -6,10 +6,14 @@
 {% block body %}
 <div class="container">
     <div class="row d-flex justify-content-center mt-5">
-        <div class="col-xl-6 col-lg-8 col-md-10 col-11 mt-3">
+        <div class="col-xl-6 col-lg-8 col-md-10 col-11 mt-3 rec_form">
             <p>I will actually recieve this email through the use of Python's SMTPlib module.</p>
             <h2>Recommend me a book!</h2>
-            {{ message }}
+            {% with messages = get_flashed_messages() %}
+                {% for message in messages %}
+                    {{ message|safe }}
+                {% endfor %}
+            {% endwith %}
             <form action="/rec" method="post">
                 {{ form.csrf_token }}
                 {{ render_form(form) }}
